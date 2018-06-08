@@ -2,7 +2,6 @@ import numpy as np
 import cv2
 
 picamera = cv2.VideoCapture(0)
-webcam = cv2.VideoCapture(1)
 
 while(True):
     ret1, frame1 = picamera.read()
