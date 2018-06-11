@@ -29,9 +29,7 @@ def store_neg_images():
 
 #Download pos images function
 def store_pos_images():
-	#Get images from imagenet
-	#Coke Images: http://www.image-net.org/api/text/imagenet.synset.geturls?wnid=n07928696
-	pos_images_link = 'http://www.image-net.org/api/text/imagenet.synset.geturls?wnid=n07928696'
+	pos_images_link = 'http://www.image-net.org/api/text/imagenet.synset.geturls?wnid=n03504205'
 	pos_image_urls = urllib.urlopen(pos_images_link).read().decode()
 
 	#create a folder called neg to place the negative images in, if the folder doesn't already exist
@@ -39,7 +37,7 @@ def store_pos_images():
 		os.makedirs('pos')
 
 	#Counter to name the pictures you get from the url link (change this number, so you don't override old images when adding new ones)
-	pic_num = 0
+	pic_num = 863
 
 	for i in pos_image_urls.split('\n'):
 		 try:
@@ -58,7 +56,7 @@ def store_pos_images():
 #Remove ugly(unnecessary/bad) image
 def find_uglies():
 	match = False
-	for file_type in ['neg']:
+	for file_type in ['pos']:
 		for img in os.listdir(file_type):
 			for ugly in os.listdir('uglies'):
 				try:
@@ -94,7 +92,7 @@ def create_pos_n_neg():
 
 ####################Main Run Functions###################
 
-store_neg_images()
-#store_pos_images()
-# find_uglies()
+#store_neg_images()
+store_pos_images()
+#find_uglies()
 #create_pos_n_neg()
