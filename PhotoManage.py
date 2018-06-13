@@ -4,8 +4,12 @@ import numpy as np
 import os
 
 def store_neg_images():
+<<<<<<< HEAD
     #neg_images_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n00523513'
     neg_images_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n10533874'   
+=======
+    neg_images_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n00523513'   
+>>>>>>> 84f000bdcecc05a66a7a5bb9088bd985826887f9
     neg_image_urls = urllib.urlopen(neg_images_link).read().decode()
     pic_num = 400
     
@@ -57,12 +61,21 @@ def store_pos_images():
 #Remove ugly(unnecessary/bad) image
 def find_uglies():
 	match = False
+<<<<<<< HEAD
 	for file_type in ['neg']:
 		for img in os.listdir(file_type):
 			for ugly in os.listdir('uglies1'):
 				try:
 					current_image_path = str(file_type) + '/' + str(img)
 					ugly = cv2.imread('uglies1/'+str(ugly))
+=======
+	for file_type in ['pos']:
+		for img in os.listdir(file_type):
+			for ugly in os.listdir('uglies'):
+				try:
+					current_image_path = str(file_type) + '/' + str(img)
+					ugly = cv2.imread('uglies/'+str(ugly))
+>>>>>>> 84f000bdcecc05a66a7a5bb9088bd985826887f9
 					question = cv2.imread(current_image_path)
 					if ugly.shape == question.shape and not(np.bitwise_xor(ugly,question).any()):
 						print('Ugly pic deleting')
@@ -94,6 +107,12 @@ def create_pos_n_neg():
 ####################Main Run Functions###################
 
 #store_neg_images()
+<<<<<<< HEAD
 #store_pos_images()
 #find_uglies()
 #create_pos_n_neg()
+=======
+store_pos_images()
+#find_uglies()
+#create_pos_n_neg()
+>>>>>>> 84f000bdcecc05a66a7a5bb9088bd985826887f9
