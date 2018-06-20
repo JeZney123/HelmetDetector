@@ -1,3 +1,5 @@
+from __future__ import print_function
+from basicmotiondetector import BasicMotionDetector
 from imutils.video import VideoStream
 import numpy as np
 import datetime
@@ -5,28 +7,31 @@ import imutils
 import time
 import cv2
 
-helmet_cascade = cv2.CascadeClassifier('LBPCascade_helmet.xml')
-motorcycle_cascade = cv2.CascadeClassifier('LBPcascade_motorcycle.xml')
+#helmet_cascade = cv2.CascadeClassifier('LBPCascade_helmet.xml')
+#motorcycle_cascade = cv2.CascadeClassifier('LBPcascade_motorcycle.xml')
 
 print("[INFO] starting cameras...")
 picam = VideoStream(usePiCamera=True).start()
 webcam = VideoStream(src=0).start()
 time.sleep(2.0)
+piMotion = BasicMotionDetector()
+camMotion = BasicMotionDetector()
 total = 0
 
 while True:
 	frames = []
 
-	for stream in picam :
-		frame = stream.read()
-		frame = imutils.resize(frame,width=400)
-		gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+	#for stream in picam:
+	frame = webcam.read()
+	frame = imutils.resize(frame,width=400)
+	gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+		#locs = motion.update(gray)
 
-		if total<32:
-			frames.append(gray)
-			continue
-
+	if total<32:
 		frames.append(gray)
+		continue
+
+	frames.append(gray)
 
 	total += 1
 	timestamp = datetime.datetime.now()

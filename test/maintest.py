@@ -12,7 +12,7 @@ ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area si
 args = vars(ap.parse_args())
  
 if args.get("video", None) is None:
-	camera = cv2.VideoCapture(1)
+	camera = cv2.VideoCapture(0)
 	time.sleep(0.25)
 else:
 	camera = VideoStream(usePiCamera=True).start()
@@ -35,8 +35,8 @@ while True:
 		firstFrame = gray
 		continue
 	frameDelta = cv2.absdiff(firstFrame, gray)
-	thresh = cv2.threshold(frameDelta, 40, 255, cv2.THRESH_BINARY)[1]
-	thresh = cv2.dilate(thresh, None, iterations=2)
+	thresh = cv2.threshold(frameDelta, 20, 255, cv2.THRESH_BINARY)[1]
+ 	thresh = cv2.dilate(thresh, None, iterations=2)
 	(_, cnts, _) = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)
  
