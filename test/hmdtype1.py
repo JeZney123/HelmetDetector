@@ -7,17 +7,15 @@ import imutils
 import time
 import cv2
 
-#helmet_cascade = cv2.CascadeClassifier('LBPCascade_helmet.xml')
+helmet_cascade = cv2.CascadeClassifier('LBPCascade_helmet.xml')
 #motorcycle_cascade = cv2.CascadeClassifier('LBPcascade_motorcycle.xml')
 
 print("[INFO] starting cameras...")
 picam = VideoStream(usePiCamera=True).start()
 webcam = VideoStream(src=0).start()
 time.sleep(2.0)
-piMotion = BasicMotionDetector()
-camMotion = BasicMotionDetector()
-total = 0
-
+print(helmet_cascade)
+time.sleep(5)
 while True:
 	frames = []
 
@@ -26,14 +24,15 @@ while True:
 	frame = imutils.resize(frame,width=400)
 	gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
 		#locs = motion.update(gray)
+	helmet = helmet_cascade.detectMultiScale(gray,1.3,5)
+	
 
-	if total<32:
-		frames.append(gray)
-		continue
+	#if total<32:
+		#frames.append(gray)
+		#continue
 
 	frames.append(gray)
 
-	total += 1
 	timestamp = datetime.datetime.now()
 	ts = timestamp.strftime("%A %d %B %Y %I:%M:%Sp")
 
